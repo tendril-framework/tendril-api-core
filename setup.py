@@ -29,7 +29,7 @@ def read(fname):
 
 
 core_dependencies = [
-    'fastapi',
+    'fastapi[all]',
 ]
 
 install_requires = core_dependencies + ['wheel']

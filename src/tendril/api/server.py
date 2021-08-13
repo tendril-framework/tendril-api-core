@@ -2,10 +2,15 @@
 
 import importlib
 from tendril.utils.versions import get_namespace_package_names
+from tendril.utils import log
+
+logger = log.getLogger(__name__, log.DEFAULT)
+
 from tendril.api.core import app
 
-
-_excluded_prefixes = []
+_excluded_prefixes = [
+    'tendril.api.server'
+]
 
 
 def build_server(prefix='tendril.api'):
@@ -15,6 +20,9 @@ def build_server(prefix='tendril.api'):
         try:
             modname = p
             globals()[modname] = importlib.import_module(modname)
-            logger.info("Installed API Endpoints from {0}".format(p))
+            logger.info("Installing API Endpoints from {0}".format(p))
         except ImportError:
             pass
+
+
+build_server()
